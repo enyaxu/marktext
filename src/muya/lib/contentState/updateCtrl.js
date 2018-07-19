@@ -419,6 +419,18 @@ const updateCtrl = ContentState => {
             ? text.substring(0, offset) + BRACKET_HASH[inputChar] + text.substring(offset)
             : text
         }
+
+        if (
+          (inputChar === postInputChar) &&
+          (
+            (autoPairQuote && /[']{1}/.test(inputChar)) ||
+            (autoPairQuote && /["]{1}/.test(inputChar)) ||
+            (autoPairBracket && /[\}\]\)]{1}/.test(inputChar)) ||
+            (autoPairMarkdownSyntax && /[*_]{1}/.test(inputChar))
+          )
+        ) {
+          text = text.substring(0, offset) + text.substring(offset + 1)
+        }
         /* eslint-enable no-useless-escape */
         if (/\s/.test(event.data) && preInputChar === '*' && postInputChar === '*') {
           text = text.substring(0, offset) + text.substring(offset + 1)
