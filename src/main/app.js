@@ -15,6 +15,7 @@ class App {
     if (isOsx) {
       app.commandLine.appendSwitch('enable-experimental-web-platform-features', 'true')
     }
+    app.commandLine.appendSwitch('remote-debugging-port', '8315')
 
     app.on('open-file', this.openFile.bind(this))
 
